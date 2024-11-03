@@ -1,16 +1,16 @@
-package com.hzx.direct;
+package com.hzx.rabbitmq.fanout;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DirectProducer {
+public class FanoutProducer {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    public void sendMessage(String routingKey, String message) {
-        rabbitTemplate.convertAndSend("direct.exchange", routingKey, message);
+    public void sendMessage(String message) {
+        rabbitTemplate.convertAndSend("fanout.exchange","", message);
     }
 }

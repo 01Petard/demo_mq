@@ -1,11 +1,10 @@
 package com.hzx;
 
-import com.hzx.direct.DirectProducer;
-import com.hzx.fanout.FanoutProducer;
-import com.hzx.topic.TopicProducer;
+import com.hzx.rabbitmq.direct.DirectProducer;
+import com.hzx.rabbitmq.fanout.FanoutProducer;
+import com.hzx.rabbitmq.topic.TopicProducer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +15,7 @@ import javax.annotation.Resource;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class MyTest {
+public class RabbitMqTest {
 
     @Resource
     public RabbitTemplate rabbitTemplate;

@@ -2,6 +2,9 @@ server:
   port: 18080
 
 spring:
+  application:
+    name: demo-mq
+
   redis:
     database: 0
     host: 1.94.147.176
@@ -22,21 +25,25 @@ spring:
     password: root
     virtual-host: /
 
-  kafka:
-    bootstrap-servers: 1.94.147.176:9092 # Kafka服务器地址，可以是多个，用逗号隔开
-    consumer:
-      group-id: my-group # 消费者组ID
-      auto-offset-reset: earliest # 当没有初始偏移量或当前偏移量不再可用时，从最早的记录开始读取
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer # 消息键的反序列化器
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer # 消息值的反序列化器
-      enable-auto-commit: false # 是否自动提交消费的偏移量，默认为true
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer # 生产者发送消息键的序列化器
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer # 生产者发送消息值的序列化器
-    listener:
-      ack-mode: manual # 手动确认模式，其他可选值有batch, record等
-    properties:
-      spring.json.trusted.packages: '*' # 允许JSON反序列化信任所有包，仅当使用JSON序列化/反序列化时需要
+#  kafka:
+#    bootstrap-servers: 1.94.147.176:9092 # Kafka服务器地址，可以是多个，用逗号隔开
+#    consumer:
+#      group-id: my-group
+#      auto-offset-reset: earliest # 设置为"earliest"表示将从最早的可用消息开始消费，即从分区的起始位置开始读取消息。当没有初始偏移量或当前偏移量不再可用时，从最早的记录开始读取
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer # 消息键的反序列化器
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer # 消息值的反序列化器
+#      enable-auto-commit: false # 是否自动提交消费的偏移量，默认为true。禁用了自动提交偏移量的功能，为了避免出现重复数据和数据丢失，一般都是手动提交
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer # 生产者发送消息键的序列化器
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer # 生产者发送消息值的序列化器
+#      acks: 1 # 一般就是选择1，兼顾可靠性和吞吐量；如果想要更高的吞吐量设置为0，如果要求更高的可靠性就设置为-1
+#    listener:
+#      ack-mode: manual_immediate # 设置消费者的确认模式为manual_immediate，表示消费者在接收到消息后立即手动确认。手动确认模式，其他可选值有batch, record等
+#      concurrency: 5 # 设置消费者的并发数为5
+#      missing-topics-fatal: false # 设置为false，表示如果消费者订阅的主题不存在，不会抛出异常。
+#    properties:
+#      spring.json.trusted.packages: '*' # 允许JSON反序列化信任所有包，仅当使用JSON序列化/反序列化时需要
+
 logging:
   level:
     root: info
